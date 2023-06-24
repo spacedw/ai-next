@@ -18,10 +18,22 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  color-scheme: dark light;
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+pre {
+  --padding: 20px;
+  padding: var(--padding);
+  margin: 0;
+  overflow-x: auto;
+  background: #0a0a0a;
+  counter-reset: line;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
 }

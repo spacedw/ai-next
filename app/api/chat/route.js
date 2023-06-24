@@ -1,11 +1,9 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import { Configuration, OpenAIApi } from 'openai-edge'
 
-const API_KEY = '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'
-
 // Create an OpenAI API client (that's edge friendly!)
 const config = new Configuration({
-  apiKey: API_KEY,
+  apiKey: process.env.OPENAI_API_KEY
 })
 const openai = new OpenAIApi(config)
 
@@ -23,7 +21,12 @@ export async function POST(request) {
     messages,
   })
   // Convert the response into a friendly text-stream
-  const stream = OpenAIStream(response)
+  const stream = OpenAIStream(response, {
+    onToken: async (token) => {
+      console.log(token)
+    }
+  })
+
   // Respond with the stream
   return new StreamingTextResponse(stream)
 }
